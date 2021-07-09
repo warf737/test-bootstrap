@@ -1,10 +1,40 @@
+<script>
+import Navbar from '@/views/Navbar';
+import Workspace from '@/views/Workspace';
+import { DEFAULT_MENU_ITEM } from './constants';
+
+export default {
+  name: 'App',
+  DEFAULT_MENU_ITEM: DEFAULT_MENU_ITEM,
+  components: {
+    Navbar,
+    Workspace
+  },
+  data() {
+    return {
+      activeTabIndex: DEFAULT_MENU_ITEM,
+    }
+  },
+  created() {
+    this.activeTabIndex = DEFAULT_MENU_ITEM;
+  },
+  methods: {
+    handleChangeTab(item) {
+      this.activeTabIndex = item.id;
+      console.log('item' , item);
+      this.$router.push({ path: `/${item.name}` })
+    },
+  }
+}
+</script>
+
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="container-fluid mb-3">
+    <navbar
+      :activeTabIndex="activeTabIndex"
+      @change-tab="handleChangeTab"
+    />
+    <workspace/>
   </div>
 </template>
 
