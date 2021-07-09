@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_ACCOUNTS: (state, payload) => {
-      state.accounts = payload;
+      state.accounts = payload.map(({ AcctNum }) => AcctNum);
     },
     SET_ACCT_POSITIONS: (state, payload) => {
       state.acct_positions = payload;
@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.entries = payload;
     },
     SET_OP_DATES: (state, payload) => {
-      state.op_dates = payload;
+      state.op_dates = payload.map(({ OpDate }) => OpDate);
     },
   },
   actions: {

@@ -1,7 +1,7 @@
 <script>
-import Acct from '../components/acct';
-import Dates from '../components/dates';
-import Operations from '../components/operations';
+import Acct from '../components/acct/acct'
+import Dates from '../components/dates/dates';
+import Operations from '../components/operations/operations';
 
 export default {
   name: 'Workspace',
@@ -24,7 +24,9 @@ export default {
 </script>
 
 <template>
-    <component class="mt-4" :is="component.page"/>
+  <div class="mt-4">
+    <component :is="component.page"/>
+  </div>
 </template>
 
 <style lang="scss" scoped>

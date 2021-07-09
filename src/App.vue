@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div id="app" class="container-fluid mb-3">
+  <div id="app" class="container col-md-8">
     <navbar
       :activeTabIndex="activeTabIndex"
       @change-tab="handleChangeTab"

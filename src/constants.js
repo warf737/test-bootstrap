@@ -17,3 +17,12 @@ export const MENU_ITEMS = [
 ];
 
 export const DEFAULT_MENU_ITEM = 0;
+
+export const ACCT_POS_TABLE_FIELDS = [
+  {
+    key: 'AcctNum',
+  },
+  {
+    key: 'Balance',
+  },
+];
