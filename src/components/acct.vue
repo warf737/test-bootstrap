@@ -1,10 +1,19 @@
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
-  name: 'Main',
+  name: 'Acct',
   data () {
     return {};
   },
-  methods: {},
+  computed: {
+    ...mapGetters(['accounts'])
+  },
+  created() {
+    this.fetchAccounts();
+  },
+  methods: {
+    ...mapActions(['fetchAccounts'])
+  },
 };
 </script>
 
