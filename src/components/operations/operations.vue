@@ -1,10 +1,8 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { CUSTOM_OPERATIONS_TABLE_FIELDS } from '../../constants';
 
 export default {
   name: 'operations',
-  CUSTOM_OPERATIONS_TABLE_FIELDS: CUSTOM_OPERATIONS_TABLE_FIELDS,
   data () {
     return {
       selectedEntry: null,
@@ -43,7 +41,7 @@ export default {
 
     <article class="mt-4">
       <div class="bg-secondary text-light mb-4">Счета проводок</div>
-      <b-table :items="selectedEntry" :fields="$options.CUSTOM_OPERATIONS_TABLE_FIELDS">
+      <b-table :items="selectedEntry">
 
         <template #thead-top="data">
           <b-tr>

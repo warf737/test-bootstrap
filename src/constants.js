@@ -27,11 +27,3 @@ export const CUSTOM_TABLE_FIELDS = [
   },
 ];
 
-
-export const CUSTOM_OPERATIONS_TABLE_FIELDS = [
-  [
-    { key: 'AcctNumCr'},
-    { key: 'AcctNumCr'},
-    { key: 'Amount' },
-  ]
-];
