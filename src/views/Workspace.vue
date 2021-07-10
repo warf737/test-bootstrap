@@ -10,16 +10,12 @@ export default {
     Dates,
     Operations,
   },
-  data () {
-    return {
-    };
-  },
-  computed: {
-    component() {
-      return this.$route.meta;
+  props: {
+    component: {
+      type: String,
+      required: true,
     }
-  },
-  methods: {},
+  }
 };
 </script>
 

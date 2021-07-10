@@ -31,7 +31,7 @@ export default new Vuex.Store({
       state.entries = payload;
     },
     SET_OP_DATES: (state, payload) => {
-      state.op_dates = payload.map(({ OpDate }) => OpDate);
+      state.op_dates = payload;
     },
   },
   actions: {

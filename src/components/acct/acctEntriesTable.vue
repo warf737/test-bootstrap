@@ -14,9 +14,7 @@ export default {
 <template>
   <div class="mt-4">
     <p class="bg-primary text-light">Проводки по счету</p>
-    <b-table
-      :items="entries"
-    />
+    <b-table :items="entries"/>
   </div>
 </template>
 

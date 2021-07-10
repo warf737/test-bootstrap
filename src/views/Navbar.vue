@@ -24,7 +24,6 @@ export default {
 <template>
   <div class="mt-4">
     <b-nav pills>
-
       <template v-for="(item, index, id) in $options.MENU_ITEMS">
         <b-nav-item :key="id"
                     :active="activeTabIndex === index"

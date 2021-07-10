@@ -19,14 +19,12 @@ export default {
       selectedDate: null,
     };
   },
-  watch: {
-    // при получении opDates от сервера меняет дефолтную дату на последнюю дату в opDates
-    dates() {
-      if (!this.selectedDate) {
-        const lastDate = max(this.dates.map(date => parseISO(date)));
-        this.selectedDate = format(lastDate, 'yyyy-MM-dd');
-      }
-    },
+  created() {
+    if (this.dates.length > 0) {
+      this.setupDate();
+    } else {
+      setTimeout(this.setupDate, 1000);
+    }
   },
   computed: {
     // при выборе даты фильтрует все счета по этой дате
@@ -37,7 +35,11 @@ export default {
   methods: {
     handleClickTableRow(row) {
       this.$emit('click-row', row);
-    }
+    },
+    setupDate() {
+      const lastDate = max(this.dates.map(date => parseISO(date)));
+      this.selectedDate = format(lastDate, 'yyyy-MM-dd');
+    },
   },
 };
 </script>

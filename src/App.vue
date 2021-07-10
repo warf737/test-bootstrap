@@ -12,16 +12,20 @@ export default {
   },
   data() {
     return {
-      activeTabIndex: DEFAULT_MENU_ITEM,
+      activeTabIndex: null,
     }
   },
   created() {
-    this.activeTabIndex = DEFAULT_MENU_ITEM;
+    this.activeTabIndex = this.$route.meta.tab || DEFAULT_MENU_ITEM;
+  },
+  computed: {
+    component() {
+      return this.$route.meta;
+    }
   },
   methods: {
     handleChangeTab(item) {
       this.activeTabIndex = item.id;
-      console.log('item' , item);
       this.$router.push({ path: `/${item.name}` })
     },
   }
@@ -34,7 +38,9 @@ export default {
       :activeTabIndex="activeTabIndex"
       @change-tab="handleChangeTab"
     />
-    <workspace/>
+    <workspace
+      :component="component"
+    />
   </div>
 </template>
 

@@ -23,6 +23,9 @@ export default {
     filteredEntries() {
       return this.entries.filter(({ AcctNumCr, AcctNumDB }) => this.activeAcct === AcctNumCr || this.activeAcct === AcctNumDB);
     },
+    dates() {
+      return this.opDates.map(({ OpDate }) => OpDate);
+    },
   },
   created () {
     this.fetchOpDates();
@@ -36,7 +39,6 @@ export default {
       'fetchEntries',
     ]),
     handleClickTableRow(row) {
-      console.log('click-click', row);
       this.activeAcct = row.AcctNum;
     },
   },
@@ -45,18 +47,15 @@ export default {
 
 <template>
   <div>
-
     <acct-position-table
-      :dates="opDates"
+      :dates="dates"
       :acctPositions="acctPositions"
       @click-row="handleClickTableRow"
     />
-
-
     <acct-entries-table
+      v-if="filteredEntries.length > 0"
       :entries="filteredEntries"
     />
-
   </div>
 </template>
 
