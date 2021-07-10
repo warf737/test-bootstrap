@@ -1,9 +1,9 @@
 <script>
-import { ACCT_POS_TABLE_FIELDS } from '../../constants';
+import { CUSTOM_TABLE_FIELDS } from '../../constants';
 import { format, max, parseISO } from 'date-fns';
 export default {
   name: 'acctPositionTable',
-  ACCT_POS_TABLE_FIELDS: ACCT_POS_TABLE_FIELDS,
+  CUSTOM_TABLE_FIELDS: CUSTOM_TABLE_FIELDS,
   props: {
     dates: {
       type: Array,
@@ -52,9 +52,11 @@ export default {
         <b-form-select v-model='selectedDate' :options='this.dates'/>
       </b-col>
     </b-row>
+
     <b-table
+      hover
       :items="acctPositionData"
-      :fields="$options.ACCT_POS_TABLE_FIELDS"
+      :fields="$options.CUSTOM_TABLE_FIELDS"
       @row-clicked="handleClickTableRow"
     />
   </article>
