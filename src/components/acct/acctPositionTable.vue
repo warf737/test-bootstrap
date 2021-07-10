@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <article>
     <p class="bg-primary text-light">Счета с остатками на дату</p>
     <b-row align-h="end">
       <b-col cols="2">
@@ -57,7 +57,7 @@ export default {
       :fields="$options.ACCT_POS_TABLE_FIELDS"
       @row-clicked="handleClickTableRow"
     />
-  </div>
+  </article>
 </template>
 
 <style lang="scss" scoped>

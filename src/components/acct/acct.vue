@@ -38,7 +38,7 @@ export default {
       'fetchAcctPositions',
       'fetchEntries',
     ]),
-    handleClickTableRow(row) {
+    handleSelectTableRow(row) {
       this.activeAcct = row.AcctNum;
     },
   },
@@ -46,17 +46,17 @@ export default {
 </script>
 
 <template>
-  <div>
+  <section>
     <acct-position-table
       :dates="dates"
       :acctPositions="acctPositions"
-      @click-row="handleClickTableRow"
+      @click-row="handleSelectTableRow"
     />
     <acct-entries-table
       v-if="filteredEntries.length > 0"
       :entries="filteredEntries"
     />
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

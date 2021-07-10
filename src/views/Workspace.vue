@@ -12,7 +12,7 @@ export default {
   },
   props: {
     component: {
-      type: String,
+      type: Object,
       required: true,
     }
   }

@@ -12,10 +12,10 @@ export default {
 </script>
 
 <template>
-  <div class="mt-4">
+  <article class="mt-4">
     <p class="bg-primary text-light">Проводки по счету</p>
     <b-table :items="entries"/>
-  </div>
+  </article>
 </template>
 
 <style lang="scss" scoped>

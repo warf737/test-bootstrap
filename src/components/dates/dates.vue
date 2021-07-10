@@ -13,6 +13,10 @@ export default {
       'opDates',
       'entries',
     ]),
+    filteredEntries() {
+      return this.entries.filter(({ OpDate }) => OpDate === this.activeDate);
+      // return this.entries;
+    }
   },
   created() {
     this.fetchOpDates();
@@ -23,15 +27,27 @@ export default {
       'fetchOpDates',
       'fetchEntries',
     ]),
+    handleSelectTableRow({ OpDate }) {
+      this.activeDate = OpDate;
+    },
   },
 };
 </script>
 
 <template>
-  <div>
-    <div class="bg-success text-light mb-4">Опердни</div>
-    <b-table :items="opDates"/>
-  </div>
+  <section>
+
+    <article class="">
+      <div class="bg-success text-light mb-4">Операционные дни</div>
+      <b-table :items="opDates" @row-clicked="handleSelectTableRow"/>
+    </article>
+
+    <article class="mt-4" v-if="filteredEntries.length > 0">
+      <div class="bg-success text-light mb-4">Проводки операционного дня</div>
+      <b-table :items="filteredEntries"/>
+    </article>
+
+  </section>
 </template>
 
 <style lang="scss" scoped>
