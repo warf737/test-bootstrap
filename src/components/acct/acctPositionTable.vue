@@ -14,7 +14,7 @@ export default {
       default: [],
     },
   },
-  data () {
+  data() {
     return {
       selectedDate: null,
     };
@@ -30,7 +30,7 @@ export default {
     // при выборе даты фильтрует все счета по этой дате
     acctPositionData() {
       return this.acctPositions.filter(({ OpDate }) => OpDate === this.selectedDate)
-    }
+    },
   },
   methods: {
     handleClickTableRow(row) {
@@ -47,8 +47,8 @@ export default {
 <template>
   <article>
     <p class="bg-primary text-light">Счета с остатками на дату</p>
-    <b-row align-h="end">
-      <b-col cols="2">
+    <b-row align-h="end" class="mb-4">
+      <b-col cols="3">
         <b-form-select v-model='selectedDate' :options='this.dates'/>
       </b-col>
     </b-row>

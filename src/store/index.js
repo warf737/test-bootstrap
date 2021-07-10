@@ -44,13 +44,6 @@ export default new Vuex.Store({
     DELETE_ENTRY: (state, payload) => {},
     DELETE_OP_DATE: (state, payload) => {},
 
-
-
-
-
-
-
-
   },
   actions: {
     fetchAccounts ({ commit }) {
