@@ -25,5 +25,6 @@ export const CUSTOM_TABLE_FIELDS = [
   {
     key: 'Balance',
   },
+  'Options'
 ];
 

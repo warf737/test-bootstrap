@@ -7,23 +7,15 @@ export default {
   components: {
     OperationsEntriesTable
   },
-  data () {
+  data() {
     return {
       selectedEntry: null,
     };
   },
-  computed: {
-    ...mapGetters([
-      'entries',
-    ]),
-  },
-  created() {
-    /**
-     * Проверка чтобы данные не грузились из моков, если они уже загружены,
-     * т.к. они уже могут быть отредактированы в локальном хранилище
-     */
-    if (this.entries.length === 0) {
-      this.fetchEntries();
+  props: {
+    entries: {
+      type: Array,
+      default: [],
     }
   },
   methods: {

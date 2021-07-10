@@ -32,6 +32,11 @@ export default {
       return this.acctPositions.filter(({ OpDate }) => OpDate === this.selectedDate)
     },
   },
+  watch: {
+    selectedDate() {
+      this.handleClickTableRow({ AcctNum: null })
+    },
+  },
   methods: {
     handleClickTableRow(row) {
       this.$emit('click-row', row);
@@ -39,6 +44,12 @@ export default {
     setupDate() {
       const lastDate = max(this.dates.map(date => parseISO(date)));
       this.selectedDate = format(lastDate, 'yyyy-MM-dd');
+    },
+    openEditForm() {
+      this.$emit('open-edit');
+    },
+    handleDeleteRow(row) {
+      console.log('coming soon delete this row');
     },
   },
 };
@@ -58,7 +69,18 @@ export default {
       :items="acctPositionData"
       :fields="$options.CUSTOM_TABLE_FIELDS"
       @row-clicked="handleClickTableRow"
-    />
+    >
+
+      <template #cell(Options)="row">
+        <b-button-group class="mr-2 ml-2">
+          <b-button size="sm" @click="openEditForm" variant="outline-secondary"> Edit
+          </b-button>
+          <b-button size="sm" @click="handleDeleteRow" variant="outline-danger"> Delete
+          </b-button>
+        </b-button-group>
+      </template>
+
+    </b-table>
   </article>
 </template>
 
