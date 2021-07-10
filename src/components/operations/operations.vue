@@ -1,20 +1,30 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import OperationsEntriesTable from './OperationsEntriesTable';
 
 export default {
   name: 'operations',
+  components: {
+    OperationsEntriesTable
+  },
   data () {
     return {
       selectedEntry: null,
     };
   },
-  created() {
-    this.fetchEntries();
-  },
   computed: {
     ...mapGetters([
       'entries',
     ]),
+  },
+  created() {
+    /**
+     * Проверка чтобы данные не грузились из моков, если они уже загружены,
+     * т.к. они уже могут быть отредактированы в локальном хранилище
+     */
+    if (this.entries.length === 0) {
+      this.fetchEntries();
+    }
   },
   methods: {
     ...mapActions([
@@ -39,19 +49,7 @@ export default {
       <b-table hover :items="entries" @row-clicked="handleSelectTableRow"/>
     </article>
 
-    <article class="mt-4">
-      <div class="bg-secondary text-light mb-4">Счета проводок</div>
-      <b-table :items="selectedEntry">
-
-        <template #thead-top="data">
-          <b-tr>
-            <b-th variant="secondary" colspan="2">Acct's</b-th>
-            <b-th variant="danger">Amount</b-th>
-          </b-tr>
-        </template>
-
-      </b-table>
-    </article>
+    <operations-entries-table :entries="selectedEntry" v-if="selectedEntry"/>
 
   </section>
 </template>

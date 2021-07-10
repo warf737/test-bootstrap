@@ -19,8 +19,23 @@ export default {
     }
   },
   created() {
-    this.fetchOpDates();
-    this.fetchEntries();
+
+    /**
+     * Проверка чтобы данные не грузились из моков, если они уже загружены,
+     * т.к. они уже могут быть отредактированы в локальном хранилище
+     */
+    if (this.opDates.length === 0) {
+      this.fetchOpDates();
+    }
+
+    /**
+     * Проверка чтобы данные не грузились из моков, если они уже загружены,
+     * т.к. они уже могут быть отредактированы в локальном хранилище
+     */
+    if (this.entries.length === 0) {
+      this.fetchEntries();
+    }
+
   },
   methods: {
     ...mapActions([

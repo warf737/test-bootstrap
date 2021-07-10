@@ -33,6 +33,24 @@ export default new Vuex.Store({
     SET_OP_DATES: (state, payload) => {
       state.op_dates = payload;
     },
+
+    UPDATE_ACCOUNT: (state, payload) => {},
+    UPDATE_ACCT_POSITION: (state, payload) => {},
+    UPDATE_ENTRY: (state, payload) => {},
+    UPDATE_OP_DATE: (state, payload) => {},
+
+    DELETE_ACCOUNT: (state, payload) => {},
+    DELETE_ACCT_POSITION: (state, payload) => {},
+    DELETE_ENTRY: (state, payload) => {},
+    DELETE_OP_DATE: (state, payload) => {},
+
+
+
+
+
+
+
+
   },
   actions: {
     fetchAccounts ({ commit }) {
