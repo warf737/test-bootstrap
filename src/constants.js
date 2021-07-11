@@ -35,11 +35,18 @@ export const MODAL_FORM_FIELDS = {
       'OpDate': '',
     },
   },
-  'entries' : {
-    fields: ['AcctNumCr', 'AcctNumDB', 'Amount', 'OpDate']
+  'entries': {
+    fields:
+      { 'AcctNumCr': '' ,
+        'AcctNumDB': '' ,
+        'Amount': '',
+        'OpDate': '' ,
+      },
   },
-  'dates' : {
-    fields: ['OpDate']
+  'dates': {
+    fields: {
+      'OpDate': '',
+    },
   },
 };
 

@@ -44,14 +44,10 @@ export default {
     },
     handleAddEdit(button) {
       this.$emit('add-edit', button);
-      console.log('coming soon add new row');
     },
     handleDeleteRow(row) {
       this.$emit('delete-row', row);
     },
-    resetSelect(row) {
-      console.log('unselect', row);
-    }
   },
 };
 </script>
@@ -71,7 +67,6 @@ export default {
       :items="acctPositionData"
       :fields="$options.CUSTOM_TABLE_FIELDS"
       @row-clicked="handleClickTableRow"
-      @unselectRow="resetSelect"
     >
 
     </b-table>

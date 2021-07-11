@@ -31,7 +31,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchAcctPositions ({ commit }) {
-      axios.get('https://jsonplaceholder.typicode.com/posts')
+      axios.get('https://jsonplaceholder.typicode.com/posts',)
         .then(() => {
           const { AcctPos } = ACCT_POS;
           commit('SET_ACCT_POSITIONS', AcctPos);
@@ -63,7 +63,8 @@ export default new Vuex.Store({
 
 
 
-    createAcctPosition({ dispatch }, payload) {
+    createAcctPos({ dispatch }, payload) {
+      console.log('create acct pos', payload);
       axios.post('https://jsonplaceholder.typicode.com/posts', payload)
         .then(() => {
           dispatch('fetchAcctPositions');
@@ -74,45 +75,25 @@ export default new Vuex.Store({
           console.log(e);
         })
     },
-    createEntries({ commit }, payload) {
-      axios.post('https://jsonplaceholder.typicode.com/posts')
+    createEntry({ dispatch }, payload) {
+      console.log('create entry', payload);
+      axios.post('https://jsonplaceholder.typicode.com/posts', payload)
         .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
         })
         .catch((e) => {
           console.log(e);
         })
     },
-    createOpDates({ commit }, payload) {
-      axios.post('https://jsonplaceholder.typicode.com/posts')
+    createOpDate({ dispatch }, payload) {
+      console.log('create date', payload);
+      axios.post('https://jsonplaceholder.typicode.com/posts', payload)
         .then(() => {
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-    },
-
-
-
-
-    updateAcctPosition({ commit }, payload) {
-      axios.put('https://jsonplaceholder.typicode.com/posts/1')
-        .then(() => {
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-    },
-    updateEntries({ commit }, payload) {
-      axios.put('https://jsonplaceholder.typicode.com/posts/1')
-        .then(() => {
-        })
-        .catch((e) => {
-          console.log(e);
-        })
-    },
-    updateOpDates({ commit }, payload) {
-      axios.put('https://jsonplaceholder.typicode.com/posts/1')
-        .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
         })
         .catch((e) => {
           console.log(e);
@@ -122,25 +103,77 @@ export default new Vuex.Store({
 
 
 
-    deleteAcctPosition({ commit }, payload) {
-      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+    updateAcctPosition({ dispatch }, payload) {
+      console.log('update acct pos', payload);
+      axios.put('https://jsonplaceholder.typicode.com/posts/1', payload)
         .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
         })
         .catch((e) => {
           console.log(e);
         })
     },
-    deleteEntries({ commit }, payload ) {
-      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+    updateEntries({ dispatch }, payload) {
+      console.log('update entries', payload);
+      axios.put('https://jsonplaceholder.typicode.com/posts/1', payload)
         .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
         })
         .catch((e) => {
           console.log(e);
         })
     },
-    deleteOpDates({ commit }, payload) {
-      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+    updateOpDates({ dispatch }, payload) {
+      console.log('update dates', payload);
+      axios.put('https://jsonplaceholder.typicode.com/posts/1', payload)
         .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+
+
+
+
+    deleteAcctPosition({ dispatch }, payload) {
+      console.log('del acct pos', payload);
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1', payload)
+        .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    deleteEntries({ dispatch }, payload ) {
+      console.log('del entries', payload);
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1', payload)
+        .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    deleteOpDates({ dispatch }, payload) {
+      console.log('del dates', payload);
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1', payload)
+        .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
         })
         .catch((e) => {
           console.log(e);

@@ -41,11 +41,13 @@ export default {
     handleSelectTableRow(row) {
       this.activeAcct = row;
     },
-    handleOpenEditForm(button) {
-      this.$emit('add-edit', { ...button, data: this.activeAcct });
+    handleOpenEditForm(row) {
+      const data = row.data ? row.data : this.activeAcct;
+      this.$emit('add-edit', { ...row, data: data });
     },
     handleDeleteRow(row) {
-      this.$emit('delete-row', row)
+      const data = row.data ? row.data : this.activeAcct;
+      this.$emit('delete-row', { ...row, data: data })
     }
   },
 };
@@ -63,6 +65,8 @@ export default {
     <acct-entries-table
       v-if="filteredEntries.length > 0"
       :entries="filteredEntries"
+      @add-edit="handleOpenEditForm"
+      @delete-row="handleDeleteRow"
     />
   </section>
 </template>

@@ -42,9 +42,9 @@ export default {
       'fetchOpDates',
       'fetchAcctPositions',
       'fetchEntries',
-      'createAcctPosition',
-      'createOpDates',
-      'createEntries',
+      'createAcctPos',
+      'createOpDate',
+      'createEntry',
       'updateAcctPosition',
       'updateOpDates',
       'updateEntries',
@@ -61,20 +61,49 @@ export default {
     },
     addEditForm(data) {
       this.showModal();
+      console.log('edit data', data);
       this.formData = data;
     },
     saveFrom(newForm) {
       switch (newForm.table) {
         case 'acct-pos':
           if (newForm.type === 'Create') {
-            this.createAcctPosition(newForm.newData);
+            this.createAcctPos(newForm.newData);
           } else {
             this.updateAcctPosition(newForm.newData);
+          }
+          break;
+        case 'dates':
+          if (newForm.type === 'Create') {
+            this.createOpDate(newForm.newData);
+          } else {
+            this.updateOpDates(newForm.newData);
+          }
+          break;
+        case 'entries':
+          if (newForm.type === 'Create') {
+            this.createEntry(newForm.newData);
+          } else {
+            this.updateEntries(newForm.newData);
           }
           break;
         default: break
       }
     },
+    deleteRow(row) {
+      switch (row.table) {
+        case 'acct-pos':
+          this.deleteAcctPosition(row.data);
+          break;
+        case 'dates':
+          this.deleteOpDates(row.data);
+          break;
+        case 'entries':
+          this.deleteEntries(row.data);
+          break;
+        default: break;
+      }
+    }
   }
 };
 </script>
@@ -87,6 +116,7 @@ export default {
       :acctPositions="acctPositions"
       :entries="entries"
       @add-edit="addEditForm"
+      @delete-row="deleteRow"
     />
 
     <modal
