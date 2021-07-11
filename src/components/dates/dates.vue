@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     filteredEntries() {
-      return this.entries.filter(({ OpDate }) => OpDate === this.activeDate);
+      return this.entries.filter(({ OpDate }) => OpDate === this.activeDate?.OpDate);
     }
   },
   methods: {
@@ -29,11 +29,20 @@ export default {
       'fetchOpDates',
       'fetchEntries',
     ]),
-    handleSelectDate({ OpDate }) {
-      this.activeDate = OpDate;
+    handleSelectDate(row) {
+      this.activeDate = row;
     },
     handleSelectEntry(row) {
       this.activeEntry = row;
+    },
+    handleAddEdit(row) {
+      console.log(row);
+      const data = row.table === 'dates' ? this.activeDate : this.activeEntry;
+      this.$emit('add-edit', { ...row, data: data });
+    },
+    handleDeleteRow(row) {
+      const data = row.table === 'dates' ? this.activeDate : this.activeEntry;
+      this.$emit('delete-row', { ...row, data: data })
     }
   },
 };
@@ -52,35 +61,35 @@ export default {
         @row-clicked="handleSelectDate"
       />
 
-<!--      <div class="row justify-content-start col-md-6">-->
-<!--        <b-button-->
-<!--          size="sm"-->
-<!--          class="mr-2"-->
-<!--          variant="outline-success"-->
-<!--          @click="handleAddEdit({ type: 'Create', table: 'dates' })"-->
-<!--        >-->
-<!--          Create row-->
-<!--        </b-button>-->
-<!--        <template v-if="this.isRowSelected">-->
-<!--          <b-button-->
-<!--            size="sm"-->
-<!--            class="mr-2"-->
-<!--            variant="outline-secondary"-->
-<!--            @click="handleAddEdit({ type: 'Edit', table: 'dates' })"-->
-<!--          >-->
-<!--            Edit row-->
-<!--          </b-button>-->
-<!--          <b-button-->
-<!--            size="sm"-->
-<!--            class="mr-2"-->
-<!--            variant="outline-danger"-->
-<!--            @click="handleDeleteRow({ type: 'Delete', table: 'dates' })"-->
-<!--          >-->
-<!--            Delete row-->
-<!--          </b-button>-->
+      <div class="row justify-content-start col-md-6">
+        <b-button
+          size="sm"
+          class="mr-2"
+          variant="outline-success"
+          @click="handleAddEdit({ type: 'Create', table: 'dates' })"
+        >
+          Create row
+        </b-button>
+        <template v-if="this.activeDate">
+          <b-button
+            size="sm"
+            class="mr-2"
+            variant="outline-secondary"
+            @click="handleAddEdit({ type: 'Edit', table: 'dates' })"
+          >
+            Edit row
+          </b-button>
+          <b-button
+            size="sm"
+            class="mr-2"
+            variant="outline-danger"
+            @click="handleDeleteRow({ type: 'Delete', table: 'dates' })"
+          >
+            Delete row
+          </b-button>
 
-<!--        </template>-->
-<!--      </div>-->
+        </template>
+      </div>
 
     </article>
 
@@ -92,35 +101,35 @@ export default {
         :items="filteredEntries"
         @row-clicked="handleSelectEntry"
       />
-<!--      <div class="row justify-content-start col-md-6">-->
-<!--        <b-button-->
-<!--          size="sm"-->
-<!--          class="mr-2"-->
-<!--          variant="outline-success"-->
-<!--          @click="handleAddEdit({ type: 'Create', table: 'entries' })"-->
-<!--        >-->
-<!--          Create row-->
-<!--        </b-button>-->
-<!--        <template v-if="this.activeEntry">-->
-<!--          <b-button-->
-<!--            size="sm"-->
-<!--            class="mr-2"-->
-<!--            variant="outline-secondary"-->
-<!--            @click="handleAddEdit({ type: 'Edit', table: 'entries' })"-->
-<!--          >-->
-<!--            Edit row-->
-<!--          </b-button>-->
-<!--          <b-button-->
-<!--            size="sm"-->
-<!--            class="mr-2"-->
-<!--            variant="outline-danger"-->
-<!--            @click="handleDeleteRow({ type: 'Delete', table: 'entries' })"-->
-<!--          >-->
-<!--            Delete row-->
-<!--          </b-button>-->
+      <div class="row justify-content-start col-md-6">
+        <b-button
+          size="sm"
+          class="mr-2"
+          variant="outline-success"
+          @click="handleAddEdit({ type: 'Create', table: 'entries' })"
+        >
+          Create row
+        </b-button>
+        <template v-if="this.activeEntry">
+          <b-button
+            size="sm"
+            class="mr-2"
+            variant="outline-secondary"
+            @click="handleAddEdit({ type: 'Edit', table: 'entries' })"
+          >
+            Edit row
+          </b-button>
+          <b-button
+            size="sm"
+            class="mr-2"
+            variant="outline-danger"
+            @click="handleDeleteRow({ type: 'Delete', table: 'entries' })"
+          >
+            Delete row
+          </b-button>
 
-<!--        </template>-->
-<!--      </div>-->
+        </template>
+      </div>
     </article>
 
   </section>
