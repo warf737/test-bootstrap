@@ -16,6 +16,7 @@ export default {
   data () {
     return {
       activeDate: null,
+      activeEntry: null,
     };
   },
   computed: {
@@ -28,9 +29,12 @@ export default {
       'fetchOpDates',
       'fetchEntries',
     ]),
-    handleSelectTableRow({ OpDate }) {
+    handleSelectDate({ OpDate }) {
       this.activeDate = OpDate;
     },
+    handleSelectEntry(row) {
+      this.activeEntry = row;
+    }
   },
 };
 </script>
@@ -45,13 +49,78 @@ export default {
         selectable
         select-mode="single"
         :items="opDates"
-        @row-clicked="handleSelectTableRow"
+        @row-clicked="handleSelectDate"
       />
+
+<!--      <div class="row justify-content-start col-md-6">-->
+<!--        <b-button-->
+<!--          size="sm"-->
+<!--          class="mr-2"-->
+<!--          variant="outline-success"-->
+<!--          @click="handleAddEdit({ type: 'Create', table: 'dates' })"-->
+<!--        >-->
+<!--          Create row-->
+<!--        </b-button>-->
+<!--        <template v-if="this.isRowSelected">-->
+<!--          <b-button-->
+<!--            size="sm"-->
+<!--            class="mr-2"-->
+<!--            variant="outline-secondary"-->
+<!--            @click="handleAddEdit({ type: 'Edit', table: 'dates' })"-->
+<!--          >-->
+<!--            Edit row-->
+<!--          </b-button>-->
+<!--          <b-button-->
+<!--            size="sm"-->
+<!--            class="mr-2"-->
+<!--            variant="outline-danger"-->
+<!--            @click="handleDeleteRow({ type: 'Delete', table: 'dates' })"-->
+<!--          >-->
+<!--            Delete row-->
+<!--          </b-button>-->
+
+<!--        </template>-->
+<!--      </div>-->
+
     </article>
 
     <article class="mt-4" v-if="filteredEntries.length > 0">
       <div class="bg-success text-light mb-4">Проводки операционного дня</div>
-      <b-table hover :items="filteredEntries"/>
+      <b-table
+        selectable
+        select-mode="single"
+        :items="filteredEntries"
+        @row-clicked="handleSelectEntry"
+      />
+<!--      <div class="row justify-content-start col-md-6">-->
+<!--        <b-button-->
+<!--          size="sm"-->
+<!--          class="mr-2"-->
+<!--          variant="outline-success"-->
+<!--          @click="handleAddEdit({ type: 'Create', table: 'entries' })"-->
+<!--        >-->
+<!--          Create row-->
+<!--        </b-button>-->
+<!--        <template v-if="this.activeEntry">-->
+<!--          <b-button-->
+<!--            size="sm"-->
+<!--            class="mr-2"-->
+<!--            variant="outline-secondary"-->
+<!--            @click="handleAddEdit({ type: 'Edit', table: 'entries' })"-->
+<!--          >-->
+<!--            Edit row-->
+<!--          </b-button>-->
+<!--          <b-button-->
+<!--            size="sm"-->
+<!--            class="mr-2"-->
+<!--            variant="outline-danger"-->
+<!--            @click="handleDeleteRow({ type: 'Delete', table: 'entries' })"-->
+<!--          >-->
+<!--            Delete row-->
+<!--          </b-button>-->
+
+<!--        </template>-->
+<!--      </div>-->
     </article>
 
   </section>
