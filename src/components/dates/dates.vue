@@ -1,34 +1,52 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Controls from '../common/controls';
 
 export default {
   name: 'dates',
-  data () {
+  components: {
+    Controls,
+  },
+  props: {
+    opDates: {
+      type: Array,
+      default: [],
+    },
+    entries: {
+      type: Array,
+      default: [],
+    },
+  },
+  data() {
     return {
       activeDate: null,
+      activeEntry: null,
     };
   },
   computed: {
-    ...mapGetters([
-      'opDates',
-      'entries',
-    ]),
     filteredEntries() {
-      return this.entries.filter(({ OpDate }) => OpDate === this.activeDate);
-      // return this.entries;
-    }
-  },
-  created() {
-    this.fetchOpDates();
-    this.fetchEntries();
+      return this.entries.filter(({ OpDate }) => OpDate === this.activeDate?.OpDate);
+    },
   },
   methods: {
     ...mapActions([
       'fetchOpDates',
       'fetchEntries',
     ]),
-    handleSelectTableRow({ OpDate }) {
-      this.activeDate = OpDate;
+    handleSelectDate(row) {
+      this.activeDate = row;
+    },
+    handleSelectEntry(row) {
+      this.activeEntry = row;
+    },
+    handleAddEdit(row) {
+      console.log(row);
+      const data = row.table === 'dates' ? this.activeDate : this.activeEntry;
+      this.$emit('add-edit', { ...row, data: data });
+    },
+    handleDeleteRow(row) {
+      const data = row.table === 'dates' ? this.activeDate : this.activeEntry;
+      this.$emit('delete-row', { ...row, data: data });
     },
   },
 };
@@ -39,12 +57,38 @@ export default {
 
     <article>
       <div class="bg-success text-light mb-4">Операционные дни</div>
-      <b-table hover :items="opDates" @row-clicked="handleSelectTableRow"/>
+      <b-table
+        hover
+        selectable
+        select-mode="single"
+        :items="opDates"
+        @row-clicked="handleSelectDate"
+      />
+
+      <controls
+        table="dates"
+        :isVisible="Boolean(activeDate)"
+        @add-edit="handleAddEdit"
+        @delete="handleDeleteRow"
+      />
+
     </article>
 
     <article class="mt-4" v-if="filteredEntries.length > 0">
       <div class="bg-success text-light mb-4">Проводки операционного дня</div>
-      <b-table hover :items="filteredEntries"/>
+      <b-table
+        selectable
+        select-mode="single"
+        :items="filteredEntries"
+        @row-clicked="handleSelectEntry"
+      />
+
+      <controls
+        table="entries"
+        :isVisible="Boolean(activeEntry)"
+        @add-edit="handleAddEdit"
+        @delete="handleDeleteRow"
+      />
     </article>
 
   </section>

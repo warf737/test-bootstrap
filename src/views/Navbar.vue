@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-  <div class="mt-4">
+  <nav class="mt-4">
     <b-nav pills>
       <template v-for="(item, index, id) in $options.MENU_ITEMS">
         <b-nav-item :key="id"
@@ -33,7 +33,7 @@ export default {
         </b-nav-item>
       </template>
     </b-nav>
-  </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>

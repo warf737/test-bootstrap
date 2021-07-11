@@ -9,38 +9,49 @@ export default {
     acctPositionTable,
     acctEntriesTable,
   },
-  data () {
+  props: {
+    opDates: {
+      type: Array,
+      default: [],
+    },
+    acctPositions: {
+      type: Array,
+      default: [],
+    },
+    entries: {
+      type: Array,
+      default: [],
+    },
+  },
+  data() {
     return {
       activeAcct: null,
     };
   },
   computed: {
-    ...mapGetters([
-      'opDates',
-      'acctPositions',
-      'entries',
-    ]),
     filteredEntries() {
-      return this.entries.filter(({ AcctNumCr, AcctNumDB }) => this.activeAcct === AcctNumCr || this.activeAcct === AcctNumDB);
+      return this.entries.filter(({ AcctNumCr, AcctNumDB }) => this.activeAcct?.AcctNum === AcctNumCr || this.activeAcct?.AcctNum === AcctNumDB);
     },
     dates() {
       return this.opDates.map(({ OpDate }) => OpDate);
     },
   },
-  created () {
-    this.fetchOpDates();
-    this.fetchAcctPositions();
-    this.fetchEntries();
-  },
+
   methods: {
-    ...mapActions([
-      'fetchOpDates',
-      'fetchAcctPositions',
-      'fetchEntries',
-    ]),
-    handleSelectTableRow(row) {
-      this.activeAcct = row.AcctNum;
+    handleSelectAcct(row) {
+      this.activeAcct = row;
     },
+    handleSelectEntry(row) {
+      this.activeEntry = row;
+    },
+    handleOpenEditForm(row) {
+      const data = row.table === 'acct-pos'? this.activeAcct : this.activeEntry;
+      this.$emit('add-edit', { ...row, data: data });
+    },
+    handleDeleteRow(row) {
+      const data = row.table === 'acct-pos'? this.activeAcct : this.activeEntry;
+      this.$emit('delete-row', { ...row, data: data })
+    }
   },
 };
 </script>
@@ -50,11 +61,16 @@ export default {
     <acct-position-table
       :dates="dates"
       :acctPositions="acctPositions"
-      @click-row="handleSelectTableRow"
+      @click-row="handleSelectAcct"
+      @add-edit="handleOpenEditForm"
+      @delete-row="handleDeleteRow"
     />
     <acct-entries-table
       v-if="filteredEntries.length > 0"
       :entries="filteredEntries"
+      @click-row="handleSelectEntry"
+      @add-edit="handleOpenEditForm"
+      @delete-row="handleDeleteRow"
     />
   </section>
 </template>
