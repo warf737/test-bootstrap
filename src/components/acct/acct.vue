@@ -38,15 +38,18 @@ export default {
   },
 
   methods: {
-    handleSelectTableRow(row) {
+    handleSelectAcct(row) {
       this.activeAcct = row;
     },
+    handleSelectEntry(row) {
+      this.activeEntry = row;
+    },
     handleOpenEditForm(row) {
-      const data = row.data ? row.data : this.activeAcct;
+      const data = row.table === 'acct-pos'? this.activeAcct : this.activeEntry;
       this.$emit('add-edit', { ...row, data: data });
     },
     handleDeleteRow(row) {
-      const data = row.data ? row.data : this.activeAcct;
+      const data = row.table === 'acct-pos'? this.activeAcct : this.activeEntry;
       this.$emit('delete-row', { ...row, data: data })
     }
   },
@@ -58,13 +61,14 @@ export default {
     <acct-position-table
       :dates="dates"
       :acctPositions="acctPositions"
-      @click-row="handleSelectTableRow"
+      @click-row="handleSelectAcct"
       @add-edit="handleOpenEditForm"
       @delete-row="handleDeleteRow"
     />
     <acct-entries-table
       v-if="filteredEntries.length > 0"
       :entries="filteredEntries"
+      @click-row="handleSelectEntry"
       @add-edit="handleOpenEditForm"
       @delete-row="handleDeleteRow"
     />

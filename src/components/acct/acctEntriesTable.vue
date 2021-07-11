@@ -1,6 +1,10 @@
 <script>
+import Controls from '../common/controls';
 export default {
   name: 'acctEntriesTable',
+  components: {
+    Controls,
+  },
   props: {
     entries: {
       type: Array,
@@ -9,18 +13,19 @@ export default {
   },
   data() {
     return {
-      selectedRow: null,
+      isRowSelected: false,
     }
   },
   methods: {
     handleClickTableRow(row) {
-      this.selectedRow = row;
+      this.$emit('click-row', row);
+      this.isRowSelected = true;
     },
-    handleAddEdit(button) {
-      this.$emit('add-edit', { ...button, data: this.selectedRow });
+    handleAddEdit(row) {
+      this.$emit('add-edit', row);
     },
     handleDeleteRow(row) {
-      this.$emit('delete-row', { ...row, data: this.selectedRow });
+      this.$emit('delete-row', row);
     },
   },
 };
@@ -36,34 +41,13 @@ export default {
       @row-clicked="handleClickTableRow"
     />
 
-    <div class="row justify-content-start col-md-6">
-      <b-button
-        size="sm"
-        class="mr-2"
-        variant="outline-success"
-        @click="handleAddEdit({ type: 'Create', table: 'entries' })"
-      >
-        Create row
-      </b-button>
-      <div v-if="this.selectedRow">
-        <b-button
-          size="sm"
-          class="mr-2"
-          variant="outline-secondary"
-          @click="handleAddEdit({ type: 'Edit', table: 'entries' })"
-        >
-          Edit row
-        </b-button>
-        <b-button
-          size="sm"
-          class="mr-2"
-          variant="outline-danger"
-          @click="handleDeleteRow({ type: 'Delete', table: 'entries' })"
-        >
-          Delete row
-        </b-button>
-      </div>
-    </div>
+
+    <controls
+      table="entries"
+      :is-visible="isRowSelected"
+      @add-edit="handleAddEdit"
+      @delete="handleDeleteRow"
+    />
 
   </article>
 </template>
