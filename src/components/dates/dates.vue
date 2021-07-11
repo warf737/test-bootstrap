@@ -1,6 +1,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import Controls from '../common/controls';
+
 export default {
   name: 'dates',
   components: {
@@ -14,9 +15,9 @@ export default {
     entries: {
       type: Array,
       default: [],
-    }
+    },
   },
-  data () {
+  data() {
     return {
       activeDate: null,
       activeEntry: null,
@@ -25,7 +26,7 @@ export default {
   computed: {
     filteredEntries() {
       return this.entries.filter(({ OpDate }) => OpDate === this.activeDate?.OpDate);
-    }
+    },
   },
   methods: {
     ...mapActions([
@@ -45,8 +46,8 @@ export default {
     },
     handleDeleteRow(row) {
       const data = row.table === 'dates' ? this.activeDate : this.activeEntry;
-      this.$emit('delete-row', { ...row, data: data })
-    }
+      this.$emit('delete-row', { ...row, data: data });
+    },
   },
 };
 </script>

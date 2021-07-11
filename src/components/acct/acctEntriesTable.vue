@@ -41,7 +41,6 @@ export default {
       @row-clicked="handleClickTableRow"
     />
 
-
     <controls
       table="entries"
       :is-visible="isRowSelected"
