@@ -1,8 +1,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
-
+import Controls from '../common/controls';
 export default {
   name: 'dates',
+  components: {
+    Controls,
+  },
   props: {
     opDates: {
       type: Array,
@@ -61,35 +64,12 @@ export default {
         @row-clicked="handleSelectDate"
       />
 
-      <div class="row justify-content-start col-md-6">
-        <b-button
-          size="sm"
-          class="mr-2"
-          variant="outline-success"
-          @click="handleAddEdit({ type: 'Create', table: 'dates' })"
-        >
-          Create row
-        </b-button>
-        <template v-if="this.activeDate">
-          <b-button
-            size="sm"
-            class="mr-2"
-            variant="outline-secondary"
-            @click="handleAddEdit({ type: 'Edit', table: 'dates' })"
-          >
-            Edit row
-          </b-button>
-          <b-button
-            size="sm"
-            class="mr-2"
-            variant="outline-danger"
-            @click="handleDeleteRow({ type: 'Delete', table: 'dates' })"
-          >
-            Delete row
-          </b-button>
-
-        </template>
-      </div>
+      <controls
+        table="dates"
+        :isVisible="Boolean(activeDate)"
+        @add-edit="handleAddEdit"
+        @delete="handleDeleteRow"
+      />
 
     </article>
 
@@ -101,35 +81,13 @@ export default {
         :items="filteredEntries"
         @row-clicked="handleSelectEntry"
       />
-      <div class="row justify-content-start col-md-6">
-        <b-button
-          size="sm"
-          class="mr-2"
-          variant="outline-success"
-          @click="handleAddEdit({ type: 'Create', table: 'entries' })"
-        >
-          Create row
-        </b-button>
-        <template v-if="this.activeEntry">
-          <b-button
-            size="sm"
-            class="mr-2"
-            variant="outline-secondary"
-            @click="handleAddEdit({ type: 'Edit', table: 'entries' })"
-          >
-            Edit row
-          </b-button>
-          <b-button
-            size="sm"
-            class="mr-2"
-            variant="outline-danger"
-            @click="handleDeleteRow({ type: 'Delete', table: 'entries' })"
-          >
-            Delete row
-          </b-button>
 
-        </template>
-      </div>
+      <controls
+        table="entries"
+        :isVisible="Boolean(activeEntry)"
+        @add-edit="handleAddEdit"
+        @delete="handleDeleteRow"
+      />
     </article>
 
   </section>
