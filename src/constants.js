@@ -25,6 +25,21 @@ export const CUSTOM_TABLE_FIELDS = [
   {
     key: 'Balance',
   },
-  'Options'
 ];
+
+export const MODAL_FORM_FIELDS = {
+  'acct-pos': {
+    fields: {
+      'AcctNum': '',
+      'Balance' : '',
+      'OpDate': '',
+    },
+  },
+  'entries' : {
+    fields: ['AcctNumCr', 'AcctNumDB', 'Amount', 'OpDate']
+  },
+  'dates' : {
+    fields: ['OpDate']
+  },
+};
 

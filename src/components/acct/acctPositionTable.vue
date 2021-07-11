@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       selectedDate: null,
+      isRowSelected: false,
     };
   },
   created() {
@@ -32,25 +33,25 @@ export default {
       return this.acctPositions.filter(({ OpDate }) => OpDate === this.selectedDate)
     },
   },
-  watch: {
-    selectedDate() {
-      this.handleClickTableRow({ AcctNum: null })
-    },
-  },
   methods: {
     handleClickTableRow(row) {
       this.$emit('click-row', row);
+      this.isRowSelected = true;
     },
     setupDate() {
       const lastDate = max(this.dates.map(date => parseISO(date)));
       this.selectedDate = format(lastDate, 'yyyy-MM-dd');
     },
-    openEditForm() {
-      this.$emit('open-edit');
+    handleAddEdit(button) {
+      this.$emit('add-edit', button);
+      console.log('coming soon add new row');
     },
     handleDeleteRow(row) {
-      console.log('coming soon delete this row');
+      this.$emit('delete-row', row);
     },
+    resetSelect(row) {
+      console.log('unselect', row);
+    }
   },
 };
 </script>
@@ -65,22 +66,45 @@ export default {
     </b-row>
 
     <b-table
-      hover
+      selectable
+      select-mode="single"
       :items="acctPositionData"
       :fields="$options.CUSTOM_TABLE_FIELDS"
       @row-clicked="handleClickTableRow"
+      @unselectRow="resetSelect"
     >
 
-      <template #cell(Options)="row">
-        <b-button-group class="mr-2 ml-2">
-          <b-button size="sm" @click="openEditForm" variant="outline-secondary"> Edit
-          </b-button>
-          <b-button size="sm" @click="handleDeleteRow" variant="outline-danger"> Delete
-          </b-button>
-        </b-button-group>
-      </template>
-
     </b-table>
+
+    <div class="row justify-content-start col-md-6">
+      <b-button
+        size="sm"
+        class="mr-2"
+        variant="outline-success"
+        @click="handleAddEdit({ type: 'Create', table: 'acct-pos' })"
+      >
+          Create row
+      </b-button>
+      <template v-if="this.isRowSelected">
+        <b-button
+          size="sm"
+          class="mr-2"
+          variant="outline-secondary"
+          @click="handleAddEdit({ type: 'Edit', table: 'acct-pos' })"
+        >
+          Edit row
+        </b-button>
+        <b-button
+          size="sm"
+          class="mr-2"
+          variant="outline-danger"
+          @click="handleDeleteRow({ type: 'Delete', table: 'acct-pos' })"
+        >
+          Delete row
+        </b-button>
+
+      </template>
+    </div>
   </article>
 </template>
 

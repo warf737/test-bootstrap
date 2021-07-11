@@ -40,7 +40,13 @@ export default {
 
     <article>
       <div class="bg-success text-light mb-4">Операционные дни</div>
-      <b-table hover :items="opDates" @row-clicked="handleSelectTableRow"/>
+      <b-table
+        hover
+        selectable
+        select-mode="single"
+        :items="opDates"
+        @row-clicked="handleSelectTableRow"
+      />
     </article>
 
     <article class="mt-4" v-if="filteredEntries.length > 0">

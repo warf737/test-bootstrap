@@ -3,7 +3,7 @@ import Acct from '../components/acct/acct'
 import Dates from '../components/dates/dates';
 import Operations from '../components/operations/operations';
 import Modal from './Modal';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'Workspace',
@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       isModalOpen: false,
+      formData: {},
     }
   },
   computed: {
@@ -41,33 +42,60 @@ export default {
       'fetchOpDates',
       'fetchAcctPositions',
       'fetchEntries',
+      'createAcctPosition',
+      'createOpDates',
+      'createEntries',
+      'updateAcctPosition',
+      'updateOpDates',
+      'updateEntries',
+      'deleteAcctPosition',
+      'deleteOpDates',
+      'deleteEntries',
     ]),
     showModal() {
       this.isModalOpen = true;
     },
     closeModal() {
       this.isModalOpen = false;
-    }
+      this.formData = {};
+    },
+    addEditForm(data) {
+      this.showModal();
+      this.formData = data;
+    },
+    saveFrom(newForm) {
+      switch (newForm.table) {
+        case 'acct-pos':
+          if (newForm.type === 'Create') {
+            this.createAcctPosition(newForm.newData);
+          } else {
+            this.updateAcctPosition(newForm.newData);
+          }
+          break;
+        default: break
+      }
+    },
   }
 };
 </script>
 
 <template>
-  <div class="mt-4">
+  <main class="mt-4">
     <component
       :is="component.page"
       :opDates="opDates"
       :acctPositions="acctPositions"
       :entries="entries"
-
-      @open-edit="showModal"
+      @add-edit="addEditForm"
     />
 
     <modal
       :is-open="isModalOpen"
+      :external-data="formData"
       @close-modal="closeModal"
+      @save-form="saveFrom"
     />
-  </div>
+  </main>
 
 </template>
 

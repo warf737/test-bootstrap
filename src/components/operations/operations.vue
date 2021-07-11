@@ -38,7 +38,13 @@ export default {
   <section>
     <article>
       <div class="bg-secondary text-light mb-4">Проводки</div>
-      <b-table hover :items="entries" @row-clicked="handleSelectTableRow"/>
+      <b-table
+        hover
+        selectable
+        select-mode="single"
+        :items="entries"
+        @row-clicked="handleSelectTableRow"
+      />
     </article>
 
     <operations-entries-table :entries="selectedEntry" v-if="selectedEntry"/>

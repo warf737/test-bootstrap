@@ -5,25 +5,20 @@ import axios from 'axios';
 Vue.use(Vuex);
 
 
-import { ACCT, ACCT_POS, OP_ENTRY, OP_DATE } from './mocks/mock';
+import { ACCT_POS, OP_ENTRY, OP_DATE } from './mocks/mock';
 
 export default new Vuex.Store({
   state: {
-    accounts: [],
     acct_positions: [],
     entries: [],
     op_dates: [],
   },
   getters: {
-    accounts: state => state.accounts,
     acctPositions: state => state.acct_positions,
     entries: state => state.entries,
     opDates: state => state.op_dates,
   },
   mutations: {
-    SET_ACCOUNTS: (state, payload) => {
-      state.accounts = payload.map(({ AcctNum }) => AcctNum);
-    },
     SET_ACCT_POSITIONS: (state, payload) => {
       state.acct_positions = payload;
     },
@@ -33,31 +28,10 @@ export default new Vuex.Store({
     SET_OP_DATES: (state, payload) => {
       state.op_dates = payload;
     },
-
-    UPDATE_ACCOUNT: (state, payload) => {},
-    UPDATE_ACCT_POSITION: (state, payload) => {},
-    UPDATE_ENTRY: (state, payload) => {},
-    UPDATE_OP_DATE: (state, payload) => {},
-
-    DELETE_ACCOUNT: (state, payload) => {},
-    DELETE_ACCT_POSITION: (state, payload) => {},
-    DELETE_ENTRY: (state, payload) => {},
-    DELETE_OP_DATE: (state, payload) => {},
-
   },
   actions: {
-    fetchAccounts ({ commit }) {
-      axios.get('https://jsonplaceholder.typicode.com/')
-        .then(() => {
-          const { Acct } = ACCT;
-          commit('SET_ACCOUNTS', Acct);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-    },
     fetchAcctPositions ({ commit }) {
-      axios.get('https://jsonplaceholder.typicode.com/')
+      axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(() => {
           const { AcctPos } = ACCT_POS;
           commit('SET_ACCT_POSITIONS', AcctPos);
@@ -67,7 +41,7 @@ export default new Vuex.Store({
       })
     },
     fetchEntries ({ commit }) {
-      axios.get('https://jsonplaceholder.typicode.com/')
+      axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(() => {
           const { OpEntry } = OP_ENTRY;
           commit('SET_ENTRIES', OpEntry);
@@ -77,7 +51,7 @@ export default new Vuex.Store({
       })
     },
     fetchOpDates ({ commit }) {
-      axios.get('https://jsonplaceholder.typicode.com/')
+      axios.get('https://jsonplaceholder.typicode.com/posts')
         .then(() => {
           const { OpDate } = OP_DATE;
           commit('SET_OP_DATES', OpDate);
@@ -85,6 +59,92 @@ export default new Vuex.Store({
       .catch((e) => {
         console.log(e);
       })
+    },
+
+
+
+    createAcctPosition({ dispatch }, payload) {
+      axios.post('https://jsonplaceholder.typicode.com/posts', payload)
+        .then(() => {
+          dispatch('fetchAcctPositions');
+          dispatch('fetchEntries');
+          dispatch('fetchOpDates');
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    createEntries({ commit }, payload) {
+      axios.post('https://jsonplaceholder.typicode.com/posts')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    createOpDates({ commit }, payload) {
+      axios.post('https://jsonplaceholder.typicode.com/posts')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+
+
+
+
+    updateAcctPosition({ commit }, payload) {
+      axios.put('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    updateEntries({ commit }, payload) {
+      axios.put('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    updateOpDates({ commit }, payload) {
+      axios.put('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+
+
+
+
+    deleteAcctPosition({ commit }, payload) {
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    deleteEntries({ commit }, payload ) {
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    },
+    deleteOpDates({ commit }, payload) {
+      axios.delete('https://jsonplaceholder.typicode.com/posts/1')
+        .then(() => {
+        })
+        .catch((e) => {
+          console.log(e);
+        })
     },
   },
   modules: {},

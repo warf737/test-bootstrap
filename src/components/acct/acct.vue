@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     filteredEntries() {
-      return this.entries.filter(({ AcctNumCr, AcctNumDB }) => this.activeAcct === AcctNumCr || this.activeAcct === AcctNumDB);
+      return this.entries.filter(({ AcctNumCr, AcctNumDB }) => this.activeAcct?.AcctNum === AcctNumCr || this.activeAcct?.AcctNum === AcctNumDB);
     },
     dates() {
       return this.opDates.map(({ OpDate }) => OpDate);
@@ -39,10 +39,13 @@ export default {
 
   methods: {
     handleSelectTableRow(row) {
-      this.activeAcct = row.AcctNum;
+      this.activeAcct = row;
     },
-    openEditForm() {
-      this.$emit('open-edit');
+    handleOpenEditForm(button) {
+      this.$emit('add-edit', { ...button, data: this.activeAcct });
+    },
+    handleDeleteRow(row) {
+      this.$emit('delete-row', row)
     }
   },
 };
@@ -54,7 +57,8 @@ export default {
       :dates="dates"
       :acctPositions="acctPositions"
       @click-row="handleSelectTableRow"
-      @open-edit="openEditForm"
+      @add-edit="handleOpenEditForm"
+      @delete-row="handleDeleteRow"
     />
     <acct-entries-table
       v-if="filteredEntries.length > 0"
